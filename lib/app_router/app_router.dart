@@ -5,7 +5,8 @@ import 'package:sovware_github_test_project/injection_container/injection_contai
 import 'package:sovware_github_test_project/screen/app_screen_data_model/inner_model/data_for_details_screen.dart';
 import 'package:sovware_github_test_project/screen/details_screen/ui/details_screen_ui.dart';
 import '../screen/list_screen/controller/list_screen_controller_cubit.dart';
-import '../screen/list_screen/ui/list_screen_ui.dart';
+import '../screen/list_screen/inner_widgets/radio_group/controller/radio_group_cubit.dart';
+import '../screen/list_screen/outer_widgets/list_screen_outer_widget.dart';
 
 class AppRouter{
   Route? onGenerateRoute(RouteSettings settings) {
@@ -14,10 +15,17 @@ class AppRouter{
     switch (settings.name) {
       case '/':
         return MaterialPageRoute(
-          builder: (context) => BlocProvider(
-            create: (context) => getIt<ListScreenCubit>()..loadData(),
-            child: const ListScreen(),
-          ),
+          builder: (context) => MultiBlocProvider(
+              providers: [
+                BlocProvider(
+                  create: (context) => getIt<ListScreenCubit>()..loadData(0),
+                ),
+                BlocProvider(
+                  create: (context) => getIt<RadioGroupCubit>(),
+                ),
+              ],
+              child: const ListScreen(),
+          )
         );
       case kGotoDetailsScreen:
         return MaterialPageRoute(

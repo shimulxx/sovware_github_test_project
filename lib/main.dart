@@ -4,6 +4,7 @@ import 'package:sovware_github_test_project/injection_container/injection_contai
 import 'app_router/app_router.dart';
 
 void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
   await registerAllDependency();
   runApp(const MyApp());
 }

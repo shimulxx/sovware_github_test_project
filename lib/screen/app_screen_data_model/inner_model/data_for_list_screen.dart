@@ -1,5 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:sovware_github_test_project/api/model/inner_model/item.dart';
+import 'package:sovware_github_test_project/injection_container/injection_container.dart';
+
+import '../../../date_time/date_time_use_cases.dart';
 
 class DataForListScreen extends Equatable{
   final String? projectName;
@@ -13,7 +16,7 @@ class DataForListScreen extends Equatable{
       projectName: item?.name,
       language: item?.language,
       license: item?.license?.spdxId,
-      dateTime: item?.updatedAt?.toString(),
+      dateTime: item?.pushedAt == null ? null : getIt<AppDateTimeFormatUseCase>().timeFromDateTime(dateTime: item!.pushedAt!),
       stars: item?.stargazersCount,
     );
   }

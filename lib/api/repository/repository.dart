@@ -15,6 +15,7 @@ class GitHubListRepositoryImp implements GitHubListRepository{
 
   @override
   Future<ScreenDataBundle> getListDataBundle({Map<String, dynamic>? queryParameters}) async{
+    print(queryParameters);
     try{
       final response = await dio.get(searchRepositoryEndPoint, queryParameters: queryParameters);
       final jsonObj = json.decode(response.data);
