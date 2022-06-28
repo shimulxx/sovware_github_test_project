@@ -8,7 +8,7 @@ class ListScreenCubit extends Cubit<ListScreenCubitState>{
   ListScreenCubit({required this.getListDataBundleUseCase})
       : super(const ListScreenCubitState(isLoading: false, hasError: false, errorMessage: ''));
 
-  void loadData() async{
+  Future<void> loadData() async{
     emit(state.copyWith(isLoading: true));
     try{
       final screenDataBundle = await getListDataBundleUseCase.getListDataBundle(queryParameters: {'q': 'flutter', 'per_page': '50'});
