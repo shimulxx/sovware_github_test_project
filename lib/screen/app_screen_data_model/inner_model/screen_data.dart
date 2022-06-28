@@ -9,19 +9,8 @@ class ScreenData extends Equatable {
 
   factory ScreenData.fromItem(Item? item) {
     return ScreenData._(
-        dataForListScreen: DataForListScreen(
-          projectName: item?.name,
-          language: item?.language,
-          license: item?.license?.spdxId,
-          dateTime: item?.updatedAt?.toString(),
-          stars: item?.stargazersCount,
-        ),
-        dataForDetailsScreen: DataForDetailsScreen(
-          ownersName: item?.owner?.login,
-          photo: item?.owner?.avatarUrl,
-          repDescription: item?.description,
-          lastUpdateDateTime: item?.updatedAt?.toString(),
-        ),
+      dataForListScreen: DataForListScreen.fromItem(item),
+      dataForDetailsScreen: DataForDetailsScreen.fromItem(item),
     );
   }
 

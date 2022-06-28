@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-
 import '../../api/model/inner_model/item.dart';
 import 'inner_model/screen_data.dart';
 
@@ -17,7 +16,6 @@ class ScreenDataBundle extends Equatable{
   }
 
   @override
-
   List<Object?> get props => [fromCache, listScreenData];
 }
 

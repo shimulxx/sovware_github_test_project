@@ -11,7 +11,7 @@ class ListScreenCubit extends Cubit<ListScreenCubitState>{
   Future<void> loadData() async{
     emit(state.copyWith(isLoading: true));
     try{
-      final screenDataBundle = await getListDataBundleUseCase.getListDataBundle(queryParameters: {'q': 'flutter', 'per_page': '50'});
+      final screenDataBundle = await getListDataBundleUseCase.getListDataBundle(queryParameters: {'q': 'flutter', 'per_page': '80'});
       emit(state.copyWith(isLoading: false, hasError: false, screenDataBundle: screenDataBundle));
     }
     catch(e){

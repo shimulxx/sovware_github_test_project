@@ -1,5 +1,5 @@
 import 'package:sovware_github_test_project/api/repository/repository.dart';
-import '../../screen/app_screen_data_model/app_screen_data_model.dart';
+import '../../screen/app_screen_data_model/screen_data_bundle_model.dart';
 
 abstract class GetListDataBundleUseCase{
   Future<ScreenDataBundle> getListDataBundle({Map<String, dynamic>? queryParameters});

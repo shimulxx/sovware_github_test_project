@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:sovware_github_test_project/api/model/github_list_response.dart';
 import 'package:sovware_github_test_project/app_constants/app_constants.dart';
-import '../../screen/app_screen_data_model/app_screen_data_model.dart';
+import '../../screen/app_screen_data_model/screen_data_bundle_model.dart';
 
 abstract class GitHubListRepository{
     Future<ScreenDataBundle> getListDataBundle({Map<String, dynamic>? queryParameters});

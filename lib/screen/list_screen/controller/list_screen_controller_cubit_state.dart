@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import '../../app_screen_data_model/app_screen_data_model.dart';
+import '../../app_screen_data_model/screen_data_bundle_model.dart';
 
 class ListScreenCubitState extends Equatable{
   final bool isLoading;
