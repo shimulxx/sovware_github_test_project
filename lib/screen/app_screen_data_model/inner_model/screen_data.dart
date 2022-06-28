@@ -1,8 +1,9 @@
+import 'package:equatable/equatable.dart';
 import '../../../api/model/inner_model/item.dart';
 import 'data_for_details_screen.dart';
 import 'data_for_list_screen.dart';
 
-class ScreenData {
+class ScreenData extends Equatable {
   final DataForListScreen dataForListScreen;
   final DataForDetailsScreen dataForDetailsScreen;
 
@@ -24,5 +25,8 @@ class ScreenData {
     );
   }
 
-  ScreenData._({required this.dataForListScreen, required this.dataForDetailsScreen});
+  const ScreenData._({required this.dataForListScreen, required this.dataForDetailsScreen});
+
+  @override
+  List<Object?> get props => [dataForListScreen, dataForDetailsScreen];
 }

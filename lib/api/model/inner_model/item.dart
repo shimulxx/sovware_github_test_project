@@ -160,7 +160,7 @@ class Item {
   final int? openIssues;
   final int? watchers;
   final String? defaultBranch;
-  final int? score;
+  final double? score;
 
   factory Item.fromMap(Map<String, dynamic> json) => Item(
     id: json["id"],

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:sovware_github_test_project/injection_container/injection_container.dart';
 
-void main() {
+import 'app_router/app_router.dart';
+
+void main() async{
+  await registerAllDependency();
   runApp(const MyApp());
 }
 
@@ -13,10 +17,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const TestScreen(),
+      theme: ThemeData(primarySwatch: Colors.blue),
+      onGenerateRoute: getIt<AppRouter>().onGenerateRoute,
+      //home: const TestScreen(),
     );
   }
 }

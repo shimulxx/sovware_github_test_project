@@ -1,0 +1,1 @@
+//No cubit or bloc is needed since details data contain in the main list
