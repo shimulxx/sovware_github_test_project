@@ -17,7 +17,7 @@ class ListScreen extends StatelessWidget {
       appBar: AppBar(title: const Text('List Screen')),
       body: RefreshIndicator(
         onRefresh: () async{
-          listScreenCubit.loadData(0);
+          listScreenCubit.loadData();
           radioGroupCubit.onChangeGroup(selectedGroupValue: 0, listScreenCubit: listScreenCubit);
         },
         child: Column(

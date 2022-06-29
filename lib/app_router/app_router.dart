@@ -18,7 +18,7 @@ class AppRouter{
           builder: (context) => MultiBlocProvider(
               providers: [
                 BlocProvider(
-                  create: (context) => getIt<ListScreenCubit>()..loadData(0),
+                  create: (context) => getIt<ListScreenCubit>()..loadData(),
                 ),
                 BlocProvider(
                   create: (context) => getIt<RadioGroupCubit>(),
