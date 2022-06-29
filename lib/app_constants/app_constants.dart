@@ -10,4 +10,7 @@ const kGotoDetailsScreen = 'detailsScreen';
 //date time format
 const kAppDateTimeFormat = 'MM-dd-yy hh:mm:ss';
 
+//app cache duration (minute)
+const kAppCacheTimeDuration = 2;
+
 

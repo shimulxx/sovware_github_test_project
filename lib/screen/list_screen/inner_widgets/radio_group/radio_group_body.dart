@@ -16,7 +16,6 @@ class RadioGroupBody extends StatelessWidget {
     final listScreenCubit = context.read<ListScreenCubit>();
     return BlocBuilder<RadioGroupCubit, RadioGroupCubitState>(
       builder: (context, state){
-        print('cur group value: ${state.curGroupValue}');
        return Row(
           mainAxisSize: MainAxisSize.min,
           children: [

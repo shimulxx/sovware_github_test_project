@@ -17,6 +17,7 @@ class ListScreenBody extends StatelessWidget {
           if(state.isLoading) { return const Center(child: CircularProgressIndicator()); }
           else if(state.hasError) { return Center(child: Text(state.errorMessage)); }
           else {
+            //print('is from cache: ${state.screenDataBundle?.fromCache}');
             final curScreenDataBundle = state.screenDataBundle?.listScreenData;
             if (curScreenDataBundle == null || curScreenDataBundle.isEmpty) { return const Text('No data found'); }
             else {

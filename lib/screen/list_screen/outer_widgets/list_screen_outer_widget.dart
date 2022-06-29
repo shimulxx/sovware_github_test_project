@@ -11,21 +11,13 @@ class ListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final listScreenCubit = context.read<ListScreenCubit>();
-    final radioGroupCubit = context.read<RadioGroupCubit>();
     return Scaffold(
       appBar: AppBar(title: const Text('List Screen')),
-      body: RefreshIndicator(
-        onRefresh: () async{
-          listScreenCubit.loadData();
-          radioGroupCubit.onChangeGroup(selectedGroupValue: 0, listScreenCubit: listScreenCubit);
-        },
-        child: Column(
-          children: const[
-             RadioGroupBody(),
-             ListScreenBody(),
-          ],
-        ),
+      body: Column(
+        children: const[
+           RadioGroupBody(),
+           ListScreenBody(),
+        ],
       )
     );
   }

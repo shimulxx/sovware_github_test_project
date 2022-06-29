@@ -62,7 +62,7 @@ void _registerListScreen(){
   getIt.registerLazySingleton<GetListDataBundleUseCase>(() => GetListDataBundleUseCaseImp(gitHubListRepository: getIt()));
 
   //register repository
-  getIt.registerLazySingleton<GitHubListRepository>(() => GitHubListRepositoryImp(dio: getIt()));
+  getIt.registerLazySingleton<GitHubListRepository>(() => GitHubListRepositoryImp(dio: getIt(), sharedPrefUseCase: getIt()));
 
   //register radio group cubit
   getIt.registerFactory<RadioGroupCubit>(() => RadioGroupCubit(sharedPrefUseCase: getIt()));
