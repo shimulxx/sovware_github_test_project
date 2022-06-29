@@ -16,18 +16,20 @@ class RadioButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 8),
-      child: Row(
-        children: [
-          Radio<int>(
-            onChanged: onChanged,
-            value: value,
-            groupValue: groupValue,
-            //activeColor: kPrimaryColor,
-          ),
-          Text(title),
-        ],
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.only(right: 8),
+        child: Row(
+          children: [
+            Radio<int>(
+              onChanged: onChanged,
+              value: value,
+              groupValue: groupValue,
+              //activeColor: kPrimaryColor,
+            ),
+            Text(title, textAlign: TextAlign.center,),
+          ],
+        ),
       ),
     );
   }

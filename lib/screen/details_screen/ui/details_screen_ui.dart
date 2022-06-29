@@ -10,7 +10,7 @@ class DetailsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Details Screen'), centerTitle: true,),
       body: Center(
-        child: Text('${dataForDetailsScreen.lastUpdateDateTime} ${dataForDetailsScreen.repDescription} ${dataForDetailsScreen.ownersName}, ${dataForDetailsScreen.photo}'),
+        child: Text('${dataForDetailsScreen.lastUpdateDateTime} ${dataForDetailsScreen.repDescription} ${dataForDetailsScreen.ownersName}, ${dataForDetailsScreen.photoUrl}'),
       ),
     );
   }

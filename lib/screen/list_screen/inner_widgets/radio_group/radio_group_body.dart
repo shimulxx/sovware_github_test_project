@@ -18,6 +18,7 @@ class RadioGroupBody extends StatelessWidget {
       builder: (context, state){
        return Row(
           mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             RadioButtonWidget(
               title: 'No Filter',
@@ -36,7 +37,7 @@ class RadioGroupBody extends StatelessWidget {
               }
             ),
             RadioButtonWidget(
-              title: 'Last Updated',
+              title: 'Updated',
               value: 3,
               groupValue: state.curGroupValue,
               onChanged: (value){

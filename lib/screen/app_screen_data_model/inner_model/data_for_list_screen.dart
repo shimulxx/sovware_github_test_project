@@ -10,6 +10,7 @@ class DataForListScreen extends Equatable{
   final String? license;
   final String? dateTime;
   final int? stars;
+  final String? photoUrl;
 
   factory DataForListScreen.fromItem(Item? item){
     return DataForListScreen._(
@@ -18,11 +19,12 @@ class DataForListScreen extends Equatable{
       license: item?.license?.spdxId,
       dateTime: item?.pushedAt == null ? null : getIt<AppDateTimeFormatUseCase>().timeFromDateTime(dateTime: item!.pushedAt!),
       stars: item?.stargazersCount,
+      photoUrl: item?.owner?.avatarUrl,
     );
   }
 
-  const DataForListScreen._({this.dateTime, this.language, this.license, this.projectName, this.stars});
+  const DataForListScreen._({this.dateTime, this.language, this.license, this.projectName, this.stars, this.photoUrl});
 
   @override
-  List<Object?> get props => [projectName, language, license, dateTime, stars];
+  List<Object?> get props => [projectName, language, license, dateTime, stars, photoUrl];
 }

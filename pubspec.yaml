@@ -35,6 +35,7 @@ dependencies:
   equatable: ^2.0.3
   shared_preferences: ^2.0.15
   connectivity_plus: ^2.3.5
+  cached_network_image: ^3.2.0
   intl:
     git:
       url: https://github.com/dart-lang/intl.git
