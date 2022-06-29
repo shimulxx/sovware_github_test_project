@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:intl/intl.dart';
@@ -26,7 +27,9 @@ Future<void> registerAllDependency() async{
 
 void _registerConnectivity() async{
   //register connectivity use case
-  getIt.registerLazySingleton<ConnectivityUseCase>(() => ConnectivityUseCaseImp());
+  getIt.registerFactory<ConnectivityUseCase>(() => ConnectivityUseCaseImp());
+  //register connectivity use 
+  getIt.registerFactoryAsync<ConnectivityResult>(() async => await Connectivity().checkConnectivity());
 }
 
 void _registerSharedPref() {

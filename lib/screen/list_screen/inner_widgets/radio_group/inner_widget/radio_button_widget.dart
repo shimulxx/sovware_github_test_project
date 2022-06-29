@@ -20,13 +20,13 @@ class RadioButtonWidget extends StatelessWidget {
       padding: const EdgeInsets.only(right: 8),
       child: Row(
         children: [
-          Text(title),
           Radio<int>(
             onChanged: onChanged,
             value: value,
             groupValue: groupValue,
             //activeColor: kPrimaryColor,
           ),
+          Text(title),
         ],
       ),
     );
