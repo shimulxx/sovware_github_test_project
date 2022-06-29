@@ -22,6 +22,7 @@ class ListScreenBody extends StatelessWidget {
             if (curScreenDataBundle == null || curScreenDataBundle.isEmpty) { return const Text('No data found'); }
             else {
               return ListView.builder(
+                key: ObjectKey(curScreenDataBundle[0]),
                 shrinkWrap: true,
                 itemCount: curScreenDataBundle.length,
                 itemBuilder: (context, index) {
