@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sovware_github_test_project/api/controller_use_cases/controller_use_cases.dart';
 import 'package:sovware_github_test_project/api/repository/repository.dart';
+import 'package:sovware_github_test_project/app_connectivity/connectivity_use_case.dart';
 import 'package:sovware_github_test_project/app_router/app_router.dart';
 import 'package:sovware_github_test_project/app_store/shared_pref_use_case.dart';
 import 'package:sovware_github_test_project/screen/list_screen/controller/list_screen_controller_cubit.dart';
@@ -19,7 +20,13 @@ Future<void> registerAllDependency() async{
   _registerAppRouter();
   _registerDateTime();
   _registerSharedPref();
+  _registerConnectivity();
   await getIt.allReady();
+}
+
+void _registerConnectivity() async{
+  //register connectivity use case
+  getIt.registerLazySingleton<ConnectivityUseCase>(() => ConnectivityUseCaseImp());
 }
 
 void _registerSharedPref() {
@@ -62,7 +69,11 @@ void _registerListScreen(){
   getIt.registerLazySingleton<GetListDataBundleUseCase>(() => GetListDataBundleUseCaseImp(gitHubListRepository: getIt()));
 
   //register repository
-  getIt.registerLazySingleton<GitHubListRepository>(() => GitHubListRepositoryImp(dio: getIt(), sharedPrefUseCase: getIt()));
+  getIt.registerLazySingleton<GitHubListRepository>(() => GitHubListRepositoryImp(
+    dio: getIt(),
+    sharedPrefUseCase: getIt(),
+    connectivityUseCase: getIt(),
+  ));
 
   //register radio group cubit
   getIt.registerFactory<RadioGroupCubit>(() => RadioGroupCubit(sharedPrefUseCase: getIt()));

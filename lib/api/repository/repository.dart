@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:sovware_github_test_project/api/model/github_list_response.dart';
+import 'package:sovware_github_test_project/app_connectivity/connectivity_use_case.dart';
 import 'package:sovware_github_test_project/app_constants/app_constants.dart';
 import 'package:sovware_github_test_project/app_store/shared_pref_use_case.dart';
 import '../../screen/app_screen_data_model/screen_data_bundle_model.dart';
@@ -12,8 +13,10 @@ abstract class GitHubListRepository{
 class GitHubListRepositoryImp implements GitHubListRepository{
   final Dio dio;
   final SharedPrefUseCase sharedPrefUseCase;
+  final ConnectivityUseCase connectivityUseCase;
+  late bool deviceIsConnected;
 
-  GitHubListRepositoryImp({required this.dio, required this.sharedPrefUseCase});
+  GitHubListRepositoryImp({required this.dio, required this.sharedPrefUseCase, required this.connectivityUseCase});
 
   String _generateKeyFromQueryParameters({required Map<String, dynamic> queryParameters}){
     if(!queryParameters.containsKey('sort')) { return 'non_filter'; }
@@ -21,10 +24,13 @@ class GitHubListRepositoryImp implements GitHubListRepository{
   }
 
   bool _cacheDurationExceed({required String keyTime}){
-    final keyTimeValue = sharedPrefUseCase.getStringFromKey(keyTime)!;
-    final cacheTime = DateTime.parse(keyTimeValue).millisecondsSinceEpoch;
-    final currentTime = DateTime.now().millisecondsSinceEpoch;
-    return ((currentTime - cacheTime) / (1000 * 60)) > kAppCacheTimeDuration;
+    if(!deviceIsConnected) { return false; }
+    else{
+      final keyTimeValue = sharedPrefUseCase.getStringFromKey(keyTime)!;
+      final cacheTime = DateTime.parse(keyTimeValue).millisecondsSinceEpoch;
+      final currentTime = DateTime.now().millisecondsSinceEpoch;
+      return ((currentTime - cacheTime) / (1000 * 60)) > kAppCacheTimeDuration;
+    }
   }
 
   bool _isFromCache({required Map<String, dynamic> queryParameters}){
@@ -47,6 +53,10 @@ class GitHubListRepositoryImp implements GitHubListRepository{
     late final String? response;
     late final bool fromCache;
     late final Map<String, dynamic> jsonObj;
+
+    deviceIsConnected = await connectivityUseCase.deviceIsConnected;
+
+    print(deviceIsConnected);
 
     if(_isFromCache(queryParameters: queryParameters)){
       final curKey = _generateKeyFromQueryParameters(queryParameters: queryParameters);
