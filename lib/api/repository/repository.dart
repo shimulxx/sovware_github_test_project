@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:sovware_github_test_project/api/model/github_list_response.dart';
 import 'package:sovware_github_test_project/app_connectivity/connectivity_use_case.dart';
 import 'package:sovware_github_test_project/app_constants/app_constants.dart';
@@ -52,7 +53,7 @@ class GitHubListRepositoryImp implements GitHubListRepository{
   Future<ScreenDataBundle> getListDataBundle({required Map<String, dynamic> queryParameters}) async{
     late final String? response;
     late final bool fromCache;
-    late final Map<String, dynamic> jsonObj;
+    //late final Map<String, dynamic> jsonObj;
 
     deviceIsConnected = await connectivityUseCase.deviceIsConnected;
 
@@ -74,9 +75,15 @@ class GitHubListRepositoryImp implements GitHubListRepository{
       catch(e){ return Future.error(e); }
       fromCache = false;
     }
-    jsonObj = json.decode(response!);
-    final details = GithubListResponse.fromMap(jsonObj);
+    //implement isolate
+    final details = await compute(_parseList, response!);
     return ScreenDataBundle.fromItemList(fromCache: fromCache, items: details.items, deviceIsConnected: deviceIsConnected);
+  }
+
+  //isolate use here for faster parsing
+  static GithubListResponse _parseList(String jsonResponse) {
+    final jsonObj = json.decode(jsonResponse);
+    return GithubListResponse.fromMap(jsonObj);
   }
 
 }
