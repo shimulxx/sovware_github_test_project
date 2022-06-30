@@ -3,7 +3,7 @@
 3. I couldn't test any ios device since my friend who has a mac is affected by corona virus! Hopefully It will work
    well on ios because in this app I used those dependency which support both android and ios.
 4. For caching I used shared pref. When cache get expired, new response will load and save this response to cache, if not
-   then load from cache. But here behind a another logic. If there is no internet connectivity is available then load expired
+   then load from cache. But here behind another logic. If there is no internet connectivity is available then load expired
    or non-expired cache for ensuring offline browsing. If no internet and no cache is available then an error will show.
 5. Three types of filter individually cached.
 6. Plug in cached network image is used here ensuring show image in offline.
