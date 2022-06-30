@@ -56,8 +56,6 @@ class GitHubListRepositoryImp implements GitHubListRepository{
 
     deviceIsConnected = await connectivityUseCase.deviceIsConnected;
 
-    print(deviceIsConnected);
-
     if(_isFromCache(queryParameters: queryParameters)){
       final curKey = _generateKeyFromQueryParameters(queryParameters: queryParameters);
       final keyValue = '${curKey}_value';
@@ -77,7 +75,7 @@ class GitHubListRepositoryImp implements GitHubListRepository{
       fromCache = false;
     }
     final details = GithubListResponse.fromMap(jsonObj);
-    return ScreenDataBundle.fromItemList(fromCache: fromCache, items: details.items);
+    return ScreenDataBundle.fromItemList(fromCache: fromCache, items: details.items, deviceIsConnected: deviceIsConnected);
   }
 
 }
