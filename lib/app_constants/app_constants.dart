@@ -14,6 +14,6 @@ const kAppDateTimeFormat = 'MM-dd-yy hh:mm:ss';
 const kAvatarDefaultPhoto = 'https://www.seekpng.com/png/full/428-4287240_no-avatar-user-circle-icon-png.png';
 
 //app cache duration (minute)
-const kAppCacheTimeDuration = 2;
+const kAppCacheTimeDuration = 30;
 
 
