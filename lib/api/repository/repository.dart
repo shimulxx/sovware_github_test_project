@@ -60,20 +60,21 @@ class GitHubListRepositoryImp implements GitHubListRepository{
       final curKey = _generateKeyFromQueryParameters(queryParameters: queryParameters);
       final keyValue = '${curKey}_value';
       response = sharedPrefUseCase.getStringFromKey(keyValue);
-      jsonObj = json.decode(response!);
       fromCache = true;
     }else{
       try{
         final curRes = await dio.get(searchRepositoryEndPoint, queryParameters: queryParameters);
         final statusCode = curRes.statusCode;
         response = curRes.data;
-        jsonObj = json.decode(response!);
-        if(curRes.statusCode != 200){ return Future.error('${jsonObj['message']}, Response code: $statusCode'); }
-        else{ await _saveResponseToStorage(queryParameters: queryParameters, response: response); }
+        if(curRes.statusCode != 200){
+          return Future.error('${json.decode(response!)['message']}, Response code: $statusCode');
+        }
+        else{ await _saveResponseToStorage(queryParameters: queryParameters, response: response!); }
       }
       catch(e){ return Future.error(e); }
       fromCache = false;
     }
+    jsonObj = json.decode(response!);
     final details = GithubListResponse.fromMap(jsonObj);
     return ScreenDataBundle.fromItemList(fromCache: fromCache, items: details.items, deviceIsConnected: deviceIsConnected);
   }

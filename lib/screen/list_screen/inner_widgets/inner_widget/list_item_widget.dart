@@ -34,6 +34,12 @@ class ListItemWidget extends StatelessWidget {
                       height: 70,
                       width: 70,
                       fit: BoxFit.cover,
+                      placeholder: (c, s){
+                        return const Padding(
+                          padding: EdgeInsets.all(15),
+                          child: CircularProgressIndicator(),
+                        );
+                      },
                       errorWidget:(context, url, error){
                         return CachedNetworkImage(
                           height: 70, width: 70,
