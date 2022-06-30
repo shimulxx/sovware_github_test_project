@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:sovware_github_test_project/api/model/inner_model/item.dart';
 import 'package:sovware_github_test_project/injection_container/injection_container.dart';
-
 import '../../../date_time/date_time_use_cases.dart';
 
 class DataForListScreen extends Equatable{

@@ -7,9 +7,11 @@ class ListItemWidget extends StatelessWidget {
   const ListItemWidget({
     Key? key,
     required this.curListItem,
+    required this.index,
   }) : super(key: key);
 
   final DataForListScreen curListItem;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -26,17 +28,20 @@ class ListItemWidget extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CachedNetworkImage(
-                    height: 70,
-                    width: 70,
-                    fit: BoxFit.cover,
-                    errorWidget:(context, url, error){
-                      return CachedNetworkImage(
-                        height: 50, width: 50,
-                        imageUrl: kAvatarDefaultPhoto,
-                      );
-                    },
-                    imageUrl: curListItem.photoUrl ?? kAvatarDefaultPhoto,
+                  Hero(
+                    tag: index,
+                    child: CachedNetworkImage(
+                      height: 70,
+                      width: 70,
+                      fit: BoxFit.cover,
+                      errorWidget:(context, url, error){
+                        return CachedNetworkImage(
+                          height: 70, width: 70,
+                          imageUrl: kAvatarDefaultPhoto,
+                        );
+                      },
+                      imageUrl: curListItem.photoUrl ?? kAvatarDefaultPhoto,
+                    ),
                   ),
                   const SizedBox(width: 10,),
                   Expanded(

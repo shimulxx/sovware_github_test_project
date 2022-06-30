@@ -30,8 +30,8 @@ class ListScreenBody extends StatelessWidget {
                   final curListItem = curScreenDataBundle[index].dataForListScreen;
                   final curDetailsItem = curScreenDataBundle[index].dataForDetailsScreen;
                   return GestureDetector(
-                    onTap: () { Navigator.of(context).pushNamed(kGotoDetailsScreen, arguments: curDetailsItem); },
-                    child: ListItemWidget(curListItem: curListItem),
+                    onTap: () { Navigator.of(context).pushNamed(kGotoDetailsScreen, arguments: [curDetailsItem, index]); },
+                    child: ListItemWidget(curListItem: curListItem, index: index,),
                   );
                 },
               );

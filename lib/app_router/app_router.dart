@@ -28,8 +28,11 @@ class AppRouter{
           )
         );
       case kGotoDetailsScreen:
+        final list = settings.arguments as List<dynamic>;
+        final curData = list[0];
+        final index = list[1];
         return MaterialPageRoute(
-          builder: (context) => DetailsScreen(dataForDetailsScreen: (settings.arguments as DataForDetailsScreen)),
+          builder: (context) => DetailsScreen(dataForDetailsScreen: curData, index: index,),
         );
       default: return null;
     }
