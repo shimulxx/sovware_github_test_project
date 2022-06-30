@@ -5,7 +5,7 @@
 4. For caching I used shared pref. When cache get expired, new response will load and save this response to cache, if not
    then load from cache. But here behind another logic. If there is no internet connectivity, then load expired or non-expired 
    cache for ensuring offline browsing. If no internet and no cache is available then an error will show.
-5. Three types of filter caching are individually cached.
+5. Three types of filter are individually cached.
 6. Plug in cached network image is used here ensuring show image in offline.
 7. Standard design pattern maintain with dependency injection. 
 8. Cubit(which is basically superclass of bloc) is used here.
