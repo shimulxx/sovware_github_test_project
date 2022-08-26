@@ -25,6 +25,7 @@ class CacheUseCaseImp implements CacheUseCase{
       final keyTimeValue = sharedPrefUseCase.getStringFromKey(keyTime)!;
       final cacheTime = DateTime.parse(keyTimeValue).millisecondsSinceEpoch;
       final currentTime = DateTime.now().millisecondsSinceEpoch;
+      print('Cache duration in minute: ${((currentTime - cacheTime) / (1000 * 60)).toStringAsFixed(2)}');
       return ((currentTime - cacheTime) / (1000 * 60)) > kAppCacheTimeDuration;
     }
   }

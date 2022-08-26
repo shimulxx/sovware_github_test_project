@@ -37,10 +37,7 @@ class DetailsScreen extends StatelessWidget {
                         width: 250,
                         fit: BoxFit.cover,
                         errorWidget:(context, url, error){
-                          return CachedNetworkImage(
-                            height: 250, width: 250,
-                            imageUrl: kAvatarDefaultPhoto,
-                          );
+                          return Image.asset('assets/pngs/avatar_default.png');
                         },
                         imageUrl: dataForDetailsScreen.photoUrl ?? kAvatarDefaultPhoto,
                       ),

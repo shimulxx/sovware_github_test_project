@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import '../../../../app_constants/app_constants.dart';
-import '../../../app_screen_data_model/inner_model/data_for_list_screen.dart';
+import '../../../../../app_constants/app_constants.dart';
+import '../../../../app_screen_data_model/inner_model/data_for_list_screen.dart';
 
 class ListItemWidget extends StatelessWidget {
   const ListItemWidget({
@@ -28,26 +28,29 @@ class ListItemWidget extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Hero(
-                    tag: index,
-                    child: CachedNetworkImage(
-                      height: 70,
-                      width: 70,
-                      fit: BoxFit.cover,
-                      placeholder: (c, s){
-                        return const Padding(
-                          padding: EdgeInsets.all(15),
-                          child: CircularProgressIndicator(),
-                        );
-                      },
-                      errorWidget:(context, url, error){
-                        return CachedNetworkImage(
-                          height: 70, width: 70,
-                          imageUrl: kAvatarDefaultPhoto,
-                        );
-                      },
-                      imageUrl: curListItem.photoUrl ?? kAvatarDefaultPhoto,
-                    ),
+                  Column(
+                    children: [
+                      Hero(
+                        tag: index,
+                        child: CachedNetworkImage(
+                          height: 70,
+                          width: 70,
+                          fit: BoxFit.cover,
+                          placeholder: (c, s){
+                            return const Padding(
+                              padding: EdgeInsets.all(15),
+                              child: CircularProgressIndicator(),
+                            );
+                          },
+                          errorWidget:(context, url, error){
+                            return Image.asset('assets/pngs/avatar_default.png');
+                          },
+                          imageUrl: curListItem.photoUrl ?? kAvatarDefaultPhoto,
+                        ),
+                      ),
+                      const SizedBox(height: 5),
+                      Text((index + 1).toString(), style: const TextStyle(fontWeight: FontWeight.bold),)
+                    ],
                   ),
                   const SizedBox(width: 10,),
                   Expanded(

@@ -14,7 +14,7 @@ class ListScreenCubitState extends Equatable{
     required this.hasError,
     this.screenDataBundle,
     required this.errorMessage,
-    required this.paginationList,
+    this.paginationList = const [],
   });
 
   ListScreenCubitState copyWith({
@@ -34,6 +34,12 @@ class ListScreenCubitState extends Equatable{
   }
 
   @override
-  List<Object?> get props => [ isLoading, hasError, screenDataBundle, errorMessage, paginationList ];
+  List<Object?> get props => [
+    isLoading,
+    hasError,
+    screenDataBundle,
+    errorMessage,
+    paginationList,
+  ];
 
 }

@@ -27,10 +27,12 @@ Future<void> registerAllDependency() async{
 }
 
 void _registerConnectivity() async{
-  //register connectivity use case
-  getIt.registerFactory<ConnectivityUseCase>(() => ConnectivityUseCaseImp());
-  //register connectivity use 
+  //register connectivity use case as singleton
+  getIt.registerLazySingleton<ConnectivityUseCase>(() => ConnectivityUseCaseImp());
+  //register connectivity result as factory
   getIt.registerFactoryAsync<ConnectivityResult>(() async => await Connectivity().checkConnectivity());
+  //register connectivity as factory
+  getIt.registerFactory<Connectivity>(() => Connectivity());
 }
 
 void _registerSharedPref() {

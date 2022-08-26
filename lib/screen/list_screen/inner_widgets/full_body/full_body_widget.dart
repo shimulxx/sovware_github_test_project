@@ -1,6 +1,7 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sovware_github_test_project/injection_container/injection_container.dart';
 import '../../controller/list_screen_controller_cubit.dart';
 import '../list_screen_body/list_screen_body.dart';
 import '../radio_group/radio_group_body.dart';
@@ -20,7 +21,7 @@ class _FullBodyWidgetState extends State<FullBodyWidget> {
 
   @override
   void initState() {
-    subscription = Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
+    subscription = getIt<Connectivity>().onConnectivityChanged.listen((ConnectivityResult result) {
       context.read<ListScreenCubit>().loadFirstPage();
     });
     super.initState();
