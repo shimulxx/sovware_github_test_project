@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sovware_github_test_project/api/cache_use_case/cache_use_case.dart';
 import 'package:sovware_github_test_project/api/controller_use_cases/controller_use_cases.dart';
 import 'package:sovware_github_test_project/api/repository/repository.dart';
 import 'package:sovware_github_test_project/app_connectivity/connectivity_use_case.dart';
@@ -65,19 +66,22 @@ void _registerDio(){
 }
 
 void _registerListScreen(){
-  //register list screen cubit
+  //register list screen cubit as factory
   getIt.registerFactory<ListScreenCubit>(() => ListScreenCubit(getListDataBundleUseCase: getIt(), sharedPrefUseCase: getIt()));
 
   //register getListDataBundleUseCase as singleton
   getIt.registerLazySingleton<GetListDataBundleUseCase>(() => GetListDataBundleUseCaseImp(gitHubListRepository: getIt()));
 
-  //register repository
+  //register cache use case as singleton
+  getIt.registerLazySingleton<CacheUseCase>(() => CacheUseCaseImp(sharedPrefUseCase: getIt()));
+
+  //register repository as singleton
   getIt.registerLazySingleton<GitHubListRepository>(() => GitHubListRepositoryImp(
     dio: getIt(),
-    sharedPrefUseCase: getIt(),
+    cacheUseCase: getIt(),
     connectivityUseCase: getIt(),
   ));
 
-  //register radio group cubit
+  //register radio group cubit as factory
   getIt.registerFactory<RadioGroupCubit>(() => RadioGroupCubit(sharedPrefUseCase: getIt()));
 }

@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:sovware_github_test_project/api/cache_use_case/cache_use_case.dart';
 import 'package:sovware_github_test_project/api/model/github_list_response.dart';
 import 'package:sovware_github_test_project/app_connectivity/connectivity_use_case.dart';
 import 'package:sovware_github_test_project/app_constants/app_constants.dart';
-import 'package:sovware_github_test_project/app_store/shared_pref_use_case.dart';
 import '../../screen/app_screen_data_model/screen_data_bundle_model.dart';
 
 abstract class GitHubListRepository{
@@ -13,56 +13,25 @@ abstract class GitHubListRepository{
 
 class GitHubListRepositoryImp implements GitHubListRepository{
   final Dio dio;
-  final SharedPrefUseCase sharedPrefUseCase;
+  final CacheUseCase cacheUseCase;
   final ConnectivityUseCase connectivityUseCase;
   late bool deviceIsConnected;
 
-  GitHubListRepositoryImp({required this.dio, required this.sharedPrefUseCase, required this.connectivityUseCase});
-
-  String _generateKeyFromQueryParameters({required Map<String, dynamic> queryParameters}){
-    final pageNumber = queryParameters['page'];
-    if(!queryParameters.containsKey('sort')) { return 'non_filter_$pageNumber'; }
-    else{ return '${queryParameters['sort']}_$pageNumber'; }
-  }
-
-  bool _cacheDurationExceed({required String keyTime}){
-    if(!deviceIsConnected) { return false; }
-    else{
-      final keyTimeValue = sharedPrefUseCase.getStringFromKey(keyTime)!;
-      final cacheTime = DateTime.parse(keyTimeValue).millisecondsSinceEpoch;
-      final currentTime = DateTime.now().millisecondsSinceEpoch;
-      return ((currentTime - cacheTime) / (1000 * 60)) > kAppCacheTimeDuration;
-    }
-  }
-
-  bool _isFromCache({required Map<String, dynamic> queryParameters}){
-    final curKey = _generateKeyFromQueryParameters(queryParameters: queryParameters);
-    final keyTime = '${curKey}_time';
-    return !(sharedPrefUseCase.getStringFromKey(keyTime) == null || _cacheDurationExceed(keyTime: keyTime));
-  }
-
-  Future<bool> _saveResponseToStorage({required Map<String, dynamic> queryParameters, required String response}) async{
-    final curKey = _generateKeyFromQueryParameters(queryParameters: queryParameters);
-    final keyTime = '${curKey}_time';
-    final keyValue = '${curKey}_value';
-    final saveDateTime = await sharedPrefUseCase.setStringUsingKeyValue(key: keyTime, value: DateTime.now().toString());
-    final saveResponse = await sharedPrefUseCase.setStringUsingKeyValue(key: keyValue, value: response);
-    return saveDateTime & saveResponse;
-  }
+  GitHubListRepositoryImp({
+    required this.dio,
+    required this.connectivityUseCase,
+    required this.cacheUseCase,
+  });
 
   @override
   Future<ScreenDataBundle> getListDataBundle({required Map<String, dynamic> queryParameters}) async{
     print(queryParameters);
     late final String? response;
     late final bool fromCache;
-    //late final Map<String, dynamic> jsonObj;
-
     deviceIsConnected = await connectivityUseCase.deviceIsConnected;
 
-    if(_isFromCache(queryParameters: queryParameters)){
-      final curKey = _generateKeyFromQueryParameters(queryParameters: queryParameters);
-      final keyValue = '${curKey}_value';
-      response = sharedPrefUseCase.getStringFromKey(keyValue);
+    if(cacheUseCase.isFromCache(queryParameters: queryParameters, isConnected: deviceIsConnected)){
+      response = cacheUseCase.getResponseFromCache(queryParameters: queryParameters);
       fromCache = true;
     }else{
       try{
@@ -72,7 +41,7 @@ class GitHubListRepositoryImp implements GitHubListRepository{
         if(curRes.statusCode != 200){
           return Future.error('${json.decode(response!)['message']}, Response code: $statusCode');
         }
-        else{ await _saveResponseToStorage(queryParameters: queryParameters, response: response!); }
+        else{ await cacheUseCase.saveResponseToCache(queryParameters: queryParameters, response: response!); }
       }
       catch(e){ return Future.error(e); }
       fromCache = false;

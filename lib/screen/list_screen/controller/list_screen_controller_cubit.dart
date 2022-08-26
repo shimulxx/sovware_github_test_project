@@ -22,7 +22,6 @@ class ListScreenCubit extends Cubit<ListScreenCubitState>{
     return mp;
   }
 
-
   void loadFirstPage(){
     pageNumber = 1;
     _loadData();
