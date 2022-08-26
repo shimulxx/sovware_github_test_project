@@ -51,6 +51,7 @@ class GitHubListRepositoryImp implements GitHubListRepository{
 
   @override
   Future<ScreenDataBundle> getListDataBundle({required Map<String, dynamic> queryParameters}) async{
+    print(queryParameters);
     late final String? response;
     late final bool fromCache;
     //late final Map<String, dynamic> jsonObj;
