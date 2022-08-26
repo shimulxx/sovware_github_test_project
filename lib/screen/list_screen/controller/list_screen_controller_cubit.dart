@@ -7,10 +7,12 @@ class ListScreenCubit extends Cubit<ListScreenCubitState>{
   final GetListDataBundleUseCase getListDataBundleUseCase;
   final SharedPrefUseCase sharedPrefUseCase;
 
-  ListScreenCubit({required this.getListDataBundleUseCase, required this.sharedPrefUseCase})
-      : super(const ListScreenCubitState(isLoading: false, hasError: false, errorMessage: ''));
+  late int pageNumber;
 
-  Map<String, dynamic> _getDefaultMap(){ return {'q': 'flutter', 'per_page': '50'}; }
+  ListScreenCubit({required this.getListDataBundleUseCase, required this.sharedPrefUseCase})
+      : super(ListScreenCubitState(isLoading: false, hasError: false, errorMessage: '', paginationList: []));
+
+  Map<String, dynamic> _getDefaultMap(){ return {'q': 'flutter', 'per_page': 10, 'page': pageNumber}; }
 
   Map<String, dynamic> _generateQueryAccordingSharedPrefValue() {
     final val = sharedPrefUseCase.getRadioValue();
@@ -20,11 +22,29 @@ class ListScreenCubit extends Cubit<ListScreenCubitState>{
     return mp;
   }
 
-  Future<void> loadData() async{
-    emit(state.copyWith(isLoading: true));
+
+  void loadFirstPage(){
+    pageNumber = 1;
+    _loadData();
+  }
+
+  void loadNextPage(){
+    ++pageNumber;
+    _loadData();
+  }
+
+  Future<void> _loadData() async{
+    if(pageNumber == 1) state.paginationList.clear();
+    emit(state.copyWith(isLoading: pageNumber == 1));
     try{
       final screenDataBundle = await getListDataBundleUseCase.getListDataBundle(queryParameters: _generateQueryAccordingSharedPrefValue());
-      emit(state.copyWith(isLoading: false, hasError: false, screenDataBundle: screenDataBundle));
+      //print('bundle: $screenDataBundle');
+      emit(state.copyWith(
+        isLoading: false,
+        hasError: false,
+        screenDataBundle: screenDataBundle,
+        paginationList: state.paginationList..addAll(screenDataBundle.listScreenData)
+      ));
     }
     catch(e){
       final currentErrorMessage = e.toString();

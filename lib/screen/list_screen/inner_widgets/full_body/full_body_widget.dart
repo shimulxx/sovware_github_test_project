@@ -21,7 +21,7 @@ class _FullBodyWidgetState extends State<FullBodyWidget> {
   @override
   void initState() {
     subscription = Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
-      context.read<ListScreenCubit>().loadData();
+      context.read<ListScreenCubit>().loadFirstPage();
     });
     super.initState();
   }

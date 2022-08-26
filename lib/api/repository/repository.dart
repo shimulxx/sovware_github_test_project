@@ -20,8 +20,9 @@ class GitHubListRepositoryImp implements GitHubListRepository{
   GitHubListRepositoryImp({required this.dio, required this.sharedPrefUseCase, required this.connectivityUseCase});
 
   String _generateKeyFromQueryParameters({required Map<String, dynamic> queryParameters}){
-    if(!queryParameters.containsKey('sort')) { return 'non_filter'; }
-    else{ return queryParameters['sort']; }
+    final pageNumber = queryParameters['page'];
+    if(!queryParameters.containsKey('sort')) { return 'non_filter_$pageNumber'; }
+    else{ return '${queryParameters['sort']}_$pageNumber'; }
   }
 
   bool _cacheDurationExceed({required String keyTime}){

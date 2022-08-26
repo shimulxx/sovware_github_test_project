@@ -18,7 +18,7 @@ class ScreenDataBundle extends Equatable{
   }
 
   @override
-  List<Object?> get props => [fromCache, listScreenData];
+  List<Object?> get props => [fromCache, listScreenData, deviceIsConnected];
 }
 
 

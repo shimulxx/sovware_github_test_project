@@ -11,7 +11,7 @@ class RadioGroupCubit extends Cubit<RadioGroupCubitState>{
   void onChangeGroup({required int? selectedGroupValue, required ListScreenCubit listScreenCubit}) async{
     emit(state.copyWith(curGroupValue: selectedGroupValue));
     if(await sharedPrefUseCase.setRadioValueSucceeded(selectedGroupValue!)){
-      listScreenCubit.loadData();
+      listScreenCubit.loadFirstPage();
     }
   }
 
