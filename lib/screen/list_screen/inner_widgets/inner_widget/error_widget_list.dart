@@ -5,10 +5,7 @@ import '../../controller/list_screen_controller_cubit.dart';
 class ErrorWidgetForList extends StatelessWidget {
   const ErrorWidgetForList({
     Key? key,
-    required this.cubit,
   }) : super(key: key);
-
-  final ListScreenCubit cubit;
 
   @override
   Widget build(BuildContext context) {

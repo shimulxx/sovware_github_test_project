@@ -6,11 +6,11 @@ import 'inner_widget/list_item_widget.dart';
 class ListBodyWidget extends StatefulWidget {
   const ListBodyWidget({
     Key? key,
-    required this.curScreenDataBundle,
+    required this.curScreenDataPaginationList,
     required this.reachAtBottom,
   }) : super(key: key);
 
-  final List<ScreenData> curScreenDataBundle;
+  final List<ScreenData> curScreenDataPaginationList;
   final Function() reachAtBottom;
 
   @override
@@ -42,11 +42,11 @@ class _ListBodyWidgetState extends State<ListBodyWidget>{
 
   @override
   Widget build(BuildContext context) {
-    final curList = widget.curScreenDataBundle;
+    final curList = widget.curScreenDataPaginationList;
     final listLength = curList.length;
     return ListView.builder(
       controller: _controller,
-      key: PageStorageKey(widget.curScreenDataBundle.hashCode),
+      key: PageStorageKey(widget.curScreenDataPaginationList.hashCode),
       shrinkWrap: true,
       itemCount: listLength + 1,
       itemBuilder: (context, index) {

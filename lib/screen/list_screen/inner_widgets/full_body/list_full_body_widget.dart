@@ -7,16 +7,16 @@ import '../list_screen_body/list_screen_body.dart';
 import '../radio_group/radio_group_body.dart';
 import '../status_body/status_body.dart';
 
-class FullBodyWidget extends StatefulWidget {
-  const FullBodyWidget({
+class ListScreenFullBodyWidget extends StatefulWidget {
+  const ListScreenFullBodyWidget({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<FullBodyWidget> createState() => _FullBodyWidgetState();
+  State<ListScreenFullBodyWidget> createState() => _ListScreenFullBodyWidgetState();
 }
 
-class _FullBodyWidgetState extends State<FullBodyWidget> {
+class _ListScreenFullBodyWidgetState extends State<ListScreenFullBodyWidget> {
   late final dynamic subscription;
 
   @override

@@ -17,13 +17,13 @@ class ListScreenBody extends StatelessWidget {
       child: BlocBuilder<ListScreenCubit, ListScreenCubitState>(
         builder: (context, state) {
           if (state.isLoading) { return const Center(child: CircularProgressIndicator()); }
-          else if (state.hasError) { return ErrorWidgetForList(cubit: cubit); }
+          else if (state.hasError) { return const ErrorWidgetForList(); }
           else {
-            final curScreenDataBundle = state.paginationList;
-            if (curScreenDataBundle.isEmpty) { return const Text('No data found');}
+            final curScreenDataPaginationList = state.paginationList;
+            if (curScreenDataPaginationList.isEmpty) { return const Text('No data found');}
             else {
               return ListBodyWidget(
-                curScreenDataBundle: curScreenDataBundle,
+                curScreenDataPaginationList: curScreenDataPaginationList,
                 reachAtBottom: cubit.loadNextPage,
               );
             }
